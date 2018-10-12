@@ -32,7 +32,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Drupal\\Tests\\tadeath_linkksbar\\": "tests/src/",
+      "Drupal\\Tests\\death_link\\": "tests/src/",
       "Drupal\\Tests\\": "vendor/drupal/core/tests/Drupal/Tests"
     }
   },
