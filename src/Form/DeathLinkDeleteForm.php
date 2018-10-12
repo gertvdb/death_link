@@ -35,7 +35,7 @@ class DeathLinkDeleteForm extends EntityConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
+  public function submitForm(array &$form, FormStateInterface $formState) {
     $this->getEntity()->delete();
 
     drupal_set_message($this->t('content @type: deleted @label.', [
@@ -43,7 +43,7 @@ class DeathLinkDeleteForm extends EntityConfirmFormBase {
       '@label' => $this->getEntity()->label(),
     ]));
 
-    $form_state->setRedirectUrl($this->getCancelUrl());
+    $formState->setRedirectUrl($this->getCancelUrl());
   }
 
 }

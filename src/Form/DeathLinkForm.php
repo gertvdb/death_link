@@ -75,10 +75,10 @@ class DeathLinkForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  public function form(array $form, FormStateInterface $form_state) {
+  public function form(array $form, FormStateInterface $formState) {
 
     // Call parent form.
-    $form = parent::form($form, $form_state);
+    $form = parent::form($form, $formState);
 
     // Get the redirect entity.
     /** @var \Drupal\death_link\Entity\DeathLinkInterface $deathLink */
@@ -158,7 +158,7 @@ class DeathLinkForm extends EntityForm {
   /**
    * Returns the action form element for the current entity form.
    */
-  protected function actionsElement(array $form, FormStateInterface $form_state) {
+  protected function actionsElement(array $form, FormStateInterface $formState) {
 
     // Get the config.
     $config = $this->configFactory()->get('death_link.settings');
@@ -169,15 +169,15 @@ class DeathLinkForm extends EntityForm {
       return [];
     }
 
-    return parent::actionsElement($form, $form_state);
+    return parent::actionsElement($form, $formState);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
-    $fromUri = $form_state->getValue('from_uri');
-    $toUri = $form_state->getValue('to_uri');
+  public function validateForm(array &$form, FormStateInterface $formState) {
+    $fromUri = $formState->getValue('from_uri');
+    $toUri = $formState->getValue('to_uri');
 
     /** @var \Drupal\death_link\Entity\DeathLinkInterface $entity */
     $entity = $this->entity;
@@ -189,28 +189,28 @@ class DeathLinkForm extends EntityForm {
     // Validate a unique from uri is passed.
     if (!$originalRedirect || $originalRedirect->getFromUri() !== $entity->getFromUri()) {
       if ($this->redirectService->getMatchingRedirect(trim($fromUri))) {
-        $form_state->setError($form['from_uri'], t('This redirect path already exists.'));
+        $formState->setError($form['from_uri'], t('This redirect path already exists.'));
       }
     }
 
     // Validate a valid from uri is passed.
     if (preg_match('#^/#', $fromUri) !== 1) {
-      $form_state->setError($form['from_uri'], t('This redirect path is invalid. It should start with a slash ( / ).'));
+      $formState->setError($form['from_uri'], t('This redirect path is invalid. It should start with a slash ( / ).'));
     }
 
     // Validate a valid from uri is passed.
     if (preg_match('#^/#', $toUri) !== 1) {
-      $form_state->setError($form['to_uri'], t('The url to redirect to is invalid. It should start with a slash ( / ).'));
+      $formState->setError($form['to_uri'], t('The url to redirect to is invalid. It should start with a slash ( / ).'));
     }
   }
 
   /**
    * {@inheritdoc}
    */
-  public function save(array $form, FormStateInterface $form_state) {
+  public function save(array $form, FormStateInterface $formState) {
 
-    $fromUri = $form_state->getValue('from_uri');
-    $toUri = $form_state->getValue('to_uri');
+    $fromUri = $formState->getValue('from_uri');
+    $toUri = $formState->getValue('to_uri');
 
     /** @var \Drupal\death_link\Entity\DeathLinkInterface $deathLink */
     $deathLink = $this->getEntity();
@@ -230,7 +230,7 @@ class DeathLinkForm extends EntityForm {
           '%label' => $deathLink->label(),
         ]));
     }
-    $form_state->setRedirectUrl($deathLink->toUrl('collection'));
+    $formState->setRedirectUrl($deathLink->toUrl('collection'));
   }
 
   /**

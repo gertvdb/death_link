@@ -103,9 +103,9 @@ class DeathLink extends ConfigEntityBase {
       $params = Url::fromUri('internal:' . $uri)->getRouteParameters();
 
       // Load entity from the path source.
-      $param_keys = array_keys($params);
-      $entity_type = array_pop($param_keys);
-      $entity = $this->entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
+      $paramKeys = array_keys($params);
+      $entityType = array_pop($paramKeys);
+      $entity = $this->entityTypeManager()->getStorage($entityType)->load($params[$entityType]);
     }
     catch (\Exception $e) {
       $entity = NULL;

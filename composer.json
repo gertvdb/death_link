@@ -41,5 +41,8 @@
       "type": "composer",
       "url": "https://packages.drupal.org/8"
     }
+  },
+  "require": {
+    "drupal/linkit": "^5.0@beta"
   }
 }

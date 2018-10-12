@@ -1,18 +1,5 @@
 <?php
 
-/**
- * @file
- * D01 redirect config form.
- *
- * This config form is currently not being used because we haven't got
- * an autocomplete that supports multiple entity types.
- *
- * However, when this autocomplete is ready; we can use this form to
- * create a list of entity types.
- *
- * @todo Use this config form when autocomplete functionality is ready.
- */
-
 namespace Drupal\death_link\Form;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -20,7 +7,6 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\ConfigFormBase;
-use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 
@@ -41,8 +27,8 @@ class DeathLinkConfigForm extends ConfigFormBase {
   /**
    * Class constructor.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entityManager) {
-    parent::__construct($config_factory);
+  public function __construct(ConfigFactoryInterface $configFactory, EntityTypeManagerInterface $entityManager) {
+    parent::__construct($configFactory);
     $this->entityManager = $entityManager;
   }
 
@@ -66,7 +52,7 @@ class DeathLinkConfigForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $formState) {
     // Get the config.
     $config = $this->config('death_link.settings');
 
@@ -83,7 +69,7 @@ class DeathLinkConfigForm extends ConfigFormBase {
 
     // Build the parent form.
     if (!empty($options)) {
-      $form = parent::buildForm($form, $form_state);
+      $form = parent::buildForm($form, $formState);
     }
 
     if (empty($options)) {
@@ -127,10 +113,10 @@ class DeathLinkConfigForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
+  public function submitForm(array &$form, FormStateInterface $formState) {
     $config = $this->config('death_link.settings');
-    $config->set('linkit_profile', $form_state->getValue('linkit_profile'))->save();
-    parent::submitForm($form, $form_state);
+    $config->set('linkit_profile', $formState->getValue('linkit_profile'))->save();
+    parent::submitForm($form, $formState);
   }
 
   /**
@@ -140,13 +126,6 @@ class DeathLinkConfigForm extends ConfigFormBase {
     return [
       'death_link.settings',
     ];
-  }
-
-  /**
-   * Build the checkbox label.
-   */
-  private function buildCheckboxLabel(EntityTypeInterface $entityType, $entityId) {
-    return $entityType->getLabel() . ' (' . $entityId . ')';
   }
 
 }

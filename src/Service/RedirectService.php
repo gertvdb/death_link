@@ -21,8 +21,8 @@ class RedirectService {
   /**
    * {@inheritdoc}
    */
-  public function __construct(QueryFactory $query_factory) {
-    $this->queryFactory = $query_factory;
+  public function __construct(QueryFactory $queryFactory) {
+    $this->queryFactory = $queryFactory;
   }
 
   /**
