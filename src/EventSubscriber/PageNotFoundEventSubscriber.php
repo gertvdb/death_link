@@ -71,7 +71,6 @@ class PageNotFoundEventSubscriber implements EventSubscriberInterface {
 
     // Make sure the status code is "404".
     $statusCode = $exception->getStatusCode();
-    kint($statusCode);
     if ($statusCode !== 404) {
       return;
     }
@@ -79,9 +78,7 @@ class PageNotFoundEventSubscriber implements EventSubscriberInterface {
     // Get the current request uri and call
     // the service to find a redirect match.
     $requestUri = $event->getRequest()->getRequestUri();
-    kint($requestUri);
     $matchingDeathLinks = $this->redirectService->getMatchingRedirect($requestUri);
-    kint($matchingDeathLinks);
 
     // Make sure we only continue when we found matches.
     if (!$matchingDeathLinks) {
