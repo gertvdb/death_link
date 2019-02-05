@@ -1,5 +1,5 @@
 {
-  "name": "gertvdb/death_link",
+  "name": "drupal/death_link",
   "description": "Provide functionality to redirect death links to the canonical url of any entity",
   "type": "drupal-module",
   "license": "GPL-2.0+",
