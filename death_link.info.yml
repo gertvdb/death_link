@@ -4,4 +4,4 @@ description: Provide functionality to redirect death links to the canonical url 
 core: 8.x
 package: Site Management
 dependencies:
-  - linkit
+  - linkit:linkit
